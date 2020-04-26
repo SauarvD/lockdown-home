@@ -8,7 +8,7 @@ import "./index.css";
 import calculateAnswer from "../../Q&A/logicBlock";
 import Room from "../room/index";
 import axios from 'axios';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Index = props => {
   
@@ -118,6 +118,9 @@ const Index = props => {
     speech.voice = voices[55] || voicesList[55];
     dispatch({type: "SPEAK", payload: speech.text})
     if(!disableHover || message === 'quiz') {
+      window.speechSynthesis.speak(speech);
+    } else {
+      speech.text = `Uncheck the box, to resume`
       window.speechSynthesis.speak(speech);
     }
   };

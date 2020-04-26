@@ -12,8 +12,17 @@ const greetingsBlock = [
   "Much better, now that you are with me. Please thoda time spend karo merey saath?",
   "I am minding my own business, aapke paas kaam nahi hai kya?",
   "Merey friends kehte hey ki anjaan logo ke saath baat nahi kartei",
-  "Aap kaun hai ? Kya chahiye?"
+  "Aap kaun hai ? What's your name?"
 ];
+
+/**
+ * followUpBlock array block initialized with outgoing messages
+ */
+const followUpBlock = [
+  "I am not interested in your name, code karke mujhe improve karo",
+  "mey CID nahi hoon, I don't have all your answers, please contribute to my master's work",
+  "abhi lockdown hey, don't waste time and please make my architecture better"
+]
 
 /**
  * Weather array block initialized with outgoing messages
@@ -33,6 +42,9 @@ const defaultBlock = [
   "try speaking properly"
 ];
 
+/**
+ * roomBlock array block initialized with outgoing messages
+ */
 const roomBlock = [
   "bahar jaake, healthy khaana leke aao. kitna maggi khaate rahogey",
   "When are you planning to read those books on your shelf? lockdown mey kuch productive bhi kar lo",
@@ -98,7 +110,13 @@ const calculateAnswer = (message, data) => {
   } else if (message.includes("quizAnnouncement")) {
     return `okay, so you want to see chamatkaar. Write your name in the clipboard, press start and I will guess your gender and enthnicity`;
   } else if (message.includes('quiz')) {
-    return `okay ${data.name}, I think, you are, a ${data.ethnicity} ${data.gender}.`
+    return `okay ${data.name}, I think, you are, an ${data.ethnicity} ${data.gender}.`
+  } else if (message.includes('name') && message.includes('my')){
+    return followUpBlock[0];
+  } else if (message.includes('why') || message.includes('friends') || message.includes('anjaan')){
+    return followUpBlock[1];
+  } else if (message.includes('lockdown')){
+    return followUpBlock[2];
   } else {
     return defaultBlock[Math.floor(Math.random() * defaultBlock.length)];
   }

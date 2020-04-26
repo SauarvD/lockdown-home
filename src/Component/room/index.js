@@ -242,9 +242,9 @@ const Room = props => {
       <section className={"curtain curtainLeft " + (curtainsOff ? "curtainLeftOpen" : "")}></section>
       <section className={"instructions " + (curtainsOff ? "none" : "")}>
         <header>LockDown@Home</header>
-        <p>This is a voice integrated environment, where you can explore things in the room. Try hovering on items in the room and see what happens.</p>
+        <p>This is a fun voice integrated environment, where you can explore things in the room. Try hovering on items in the room and see what happens.</p>
         <p>Try interacting with the lady by clicking on the microphone on the table, and speaking near your machine. You can start interaction by saying, `How are you?`, `How is the weather?`, `Light off`, `Light on`, etc.</p>
-        <p>Start exploring the room and enjoy. Feel free to contribute to this open source project to improve it even more. To go to Github link, please click <a href="https://github.com/SauarvD/lockdownHome" target="_blank">here</a></p>
+        <p>Start exploring the room and enjoy. Feel free to contribute to this open source project to improve it even more. To go to Github link, please click <a href="https://github.com/SauarvD/lockdown-home" target="_blank">here</a></p>
         <p>To start the play, click Go</p>
         <p className="startButton" onClick={() => removeCurtains()}>Go</p>
       </section>
