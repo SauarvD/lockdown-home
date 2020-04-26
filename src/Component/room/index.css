@@ -287,6 +287,11 @@ body {
   position: inherit;
 }
 
+/* =============================================== /*
+/*                                                 /* 
+/*                      Clipboard                  /*
+/*                                                 /*
+/* =============================================== */
 .clipBoardContainer {
   right: 5%;
   top: 25%;
@@ -364,6 +369,11 @@ body {
   padding: 0.4em 0;
 }
 
+/* =============================================== /*
+/*                                                 /* 
+/*                      Microphone                 /*
+/*                                                 /*
+/* =============================================== */
 .microphone {
   width: 2em;
   height: 6em;
@@ -403,6 +413,11 @@ body {
   transition: 0.3s ease-in;
 }
 
+/* =============================================== /*
+/*                                                 /* 
+/*                      Curtain                    /*
+/*                                                 /*
+/* =============================================== */
 .curtain {
   width: 50%;
   position: absolute;
@@ -445,24 +460,24 @@ body {
 
 .instructions header {
   font-size: 2em;
-    margin-bottom: 1em;
-}
-
-.instructions p{
   margin-bottom: 1em;
 }
 
-.instructions p a{
+.instructions p {
+  margin-bottom: 1em;
+}
+
+.instructions p a {
   color: #fff;
 }
 
-.startButton{
+.startButton {
   cursor: pointer;
   padding: 0.5em;
   border: 1px solid #fff;
   border-radius: 3em;
   width: 10%;
-    margin: 0 auto;
+  margin: 0 auto;
 }
 
 .none {
@@ -647,6 +662,11 @@ body {
   top: 45px;
 }
 
+/* =============================================== /*
+/*                                                 /* 
+/*                      Bulb                       /*
+/*                                                 /*
+/* =============================================== */
 .bulbContainer {
   left: 50%;
   width: 4em;
@@ -791,9 +811,6 @@ body {
   height: 50%;
   top: 22px;
 }
-.books span:nth-child(2) {
-  /* Diamond Narrow "Joseph Silber" */
-}
 .books span:nth-child(2):before {
   background-color: #fff;
 }
@@ -837,7 +854,7 @@ body {
   -webkit-border-radius: 50%;
   border-radius: 50%;
   position: relative;
-  top: 20px;
+  top: 7px;
   left: 4px;
 }
 .books span:nth-child(6):before {
@@ -897,6 +914,19 @@ body {
 }
 .books span:nth-child(11):before {
   background-color: #86cccc;
+}
+.bookTitle {
+  transform: rotate(-90deg);
+  color: #fff;
+  margin-top: 2em;
+  font-size: 0.9em;
+  font-family: sans-serif;
+}
+.bookTitle.html{
+  margin-top: 3em;
+}
+.bookTitle.vue{
+  margin-top: 2.5em;
 }
 
 /*
@@ -1699,6 +1729,9 @@ body {
     left: -0.7em;
     width: 2em;
     height: 2em;
+  }
+  .bookTitle{
+    font-size: 0.7em;
   }
 }
 

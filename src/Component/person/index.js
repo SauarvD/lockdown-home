@@ -3,7 +3,7 @@
  * @author Saurav Dutta
  * @description File to make the person
  */
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./index.css";
 
 const Person = props => {

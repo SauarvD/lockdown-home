@@ -7,16 +7,14 @@ import React, { useState } from "react";
 import "./index.css";
 import calculateAnswer from "../../Q&A/logicBlock";
 import Room from "../room/index";
-import axios from 'axios';
+import axios from "axios";
 import { useDispatch } from "react-redux";
 
 const Index = props => {
-  
   const dispatch = useDispatch();
   /**
    * Initializations of speechRecognition and speechSynthesis
    */
-  const [showButton, setCondition] = useState(true);
   const [disableHover, setDisableCondition] = useState(false);
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -31,10 +29,6 @@ const Index = props => {
    */
   recognition.onstart = function() {
     console.log("Voice is activated");
-    setCondition(false);
-    setTimeout(function(){
-      setCondition(true);
-    },3000)
   };
 
   /**
@@ -43,46 +37,64 @@ const Index = props => {
    * to process the output
    */
   recognition.onresult = function(event) {
-    setCondition(true);
     const current = event.resultIndex;
     const transcript = event.results[current][0].transcript;
     readOutLoud(transcript);
   };
 
-  const talkData = (data) => {
-    if(data){
+  /**
+   * Callback function to start listening
+   * @param {boolean} data 
+   */
+  const talkData = data => {
+    if (data) {
       talkButton();
     }
-  }
+  };
 
-  const roomTalk = (data) => {
+  /**
+   * Callback function to start speaking with predefined message
+   * @param {string} data 
+   */
+  const roomTalk = data => {
     readOutLoud(data);
-  }
+  };
 
+  /**
+   * Callback function to announce start of the quiz
+   */
   const announceQuiz = () => {
     setDisableCondition(true);
-    readOutLoud('quizAnnouncement');
-  }
+    readOutLoud("quizAnnouncement");
+  };
 
-  const startQuiz = (name) => {
-    let firstName = name.split(' ')[0];
-    axios.get(`https://api.diversitydata.io/?fullname=${name}`)
+  /**
+   * Callback function to call api with user name
+   * @param {string} name 
+   */
+  const startQuiz = name => {
+    let firstName = name.split(" ")[0];
+    axios
+      .get(`https://api.diversitydata.io/?fullname=${name}`)
       .then(res => {
         let data = {
-          'ethnicity' : res.data.ethnicity,
-          'gender':  res.data.gender,
-          'name': firstName
-        }
-        readOutLoud('quiz', data);
+          ethnicity: res.data.ethnicity,
+          gender: res.data.gender,
+          name: firstName
+        };
+        readOutLoud("quiz", data);
       })
       .catch(err => {
         console.error(err);
-      })
-  }
+      });
+  };
 
+  /**
+   * Callback function to close the quiz
+   */
   const closeQuiz = () => {
     setDisableCondition(false);
-  }
+  };
 
   /**
    * Function to initiate speaking
@@ -93,7 +105,7 @@ const Index = props => {
 
   /**
    * Function to read out loud the processed output to the user
-   * @param {string} message 
+   * @param {string} message
    */
   const readOutLoud = (message, data) => {
     var voices = window.speechSynthesis.getVoices();
@@ -101,14 +113,14 @@ const Index = props => {
     speech.volume = 1;
     speech.rate = 0.9;
     speech.pitch = 1;
-    if(message === true){
-      speech.text = `Ha ha pata hai, responsive nahi hai`
+    if (message === true) {
+      speech.text = `Ha ha pata hai, responsive nahi hai`;
     } else {
       /**
        * Getting the processed output as per user's message
        */
       const output = calculateAnswer.calculateAnswer(message, data);
-      if(output !== undefined){
+      if (output !== undefined) {
         speech.text = output;
       }
     }
@@ -116,21 +128,24 @@ const Index = props => {
      * 55th is the index of indian language from among the list of voices available
      */
     speech.voice = voices[55] || voicesList[55];
-    dispatch({type: "SPEAK", payload: speech.text})
-    if(!disableHover || message === 'quiz') {
+    dispatch({ type: "SPEAK", payload: speech.text });
+    if (!disableHover || message === "quiz") {
       window.speechSynthesis.speak(speech);
     } else {
-      speech.text = `Uncheck the box, to resume`
+      speech.text = `Uncheck the box, to resume`;
       window.speechSynthesis.speak(speech);
     }
   };
 
   return (
     <article className="container">
-      {/* <div className="content">
-        {showButton && <button onClick={talkButton}>Talk</button>}
-      </div> */}
-      <Room talkValue={talkData} roomTalk={roomTalk} announceQuiz={announceQuiz} startQuiz={startQuiz} closeQuiz={closeQuiz}/>
+      <Room
+        talkValue={talkData}
+        roomTalk={roomTalk}
+        announceQuiz={announceQuiz}
+        startQuiz={startQuiz}
+        closeQuiz={closeQuiz}
+      />
     </article>
   );
 };

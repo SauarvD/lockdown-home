@@ -12,6 +12,9 @@ import bottle from "../../assets/beerbottle.png";
 import ppboat from "../../assets/ppboat.png";
 
 const Room = props => {
+  /**
+   * Initializations of variables
+   */
   const [helmetShow, setHelmet] = useState(false);
   const [ttbatShow, setTtbat] = useState(false);
   const [bottleShow, setBottle] = useState(false);
@@ -27,13 +30,22 @@ const Room = props => {
       d >= 6 && d <= 14 ? "morning" : d > 14 && d < 19 ? "afternoon" : "night";
     setTime(timeOfTheDay);
     timeMapping();
+    /**
+     * Setting 5 mins interval after which clock time will get updated
+     */
     setInterval(function() {
       timeMapping();
     }, 300000);
   }, []);
 
+  /**
+   * Array with class names for random assignment to respective node
+   */
   const breakChances = ["cupShake", "cupBreak", "cupShake"];
 
+  /**
+   * Function to change clock time after 5 mins
+   */
   const timeMapping = () => {
     let timeValue = new Date();
     let hours = timeValue.getHours();
@@ -46,35 +58,9 @@ const Room = props => {
     minElement.style.transform = "rotate(" + minute_as_degree + "deg)";
   };
 
-  const mountainScene = () => {
-    return (
-      <section>
-        <div
-          className={"mountain " + (currentTime === "night" ? "darkMode" : "")}
-        >
-          <div className="mountain-top">
-            <div className="mountain-cap-1"></div>
-            <div className="mountain-cap-2"></div>
-            <div className="mountain-cap-3"></div>
-          </div>
-        </div>
-        <div className="mountain-two">
-          <div className="mountain-top">
-            <div className="mountain-cap-1"></div>
-            <div className="mountain-cap-2"></div>
-            <div className="mountain-cap-3"></div>
-          </div>
-        </div>
-        <div className="cloud"></div>
-        {currentTime === "night" && (
-          <div>
-            <div className="stars"></div>
-          </div>
-        )}
-      </section>
-    );
-  };
-
+  /**
+   * Functions to handle adding and removing opening and closing classes of all drawers
+   */
   const addDrawerClassOne = () => {
     firstDrawerTalk();
     let element = document.getElementsByClassName("right-tb")[0];
@@ -120,6 +106,9 @@ const Room = props => {
     setBottle(false);
   };
 
+  /**
+   * Functions to handle adding and removing of shake class to cup
+   */
   const addShakeClass = () => {
     let element = document.getElementsByClassName("cup")[0];
     let classValue =
@@ -137,6 +126,9 @@ const Room = props => {
     }
   };
 
+  /**
+   * Functions to handle showing and hiding of paper boat image in the trash
+   */
   const showTrash = () => {
     trashTalk();
     setPpboat(true);
@@ -146,33 +138,9 @@ const Room = props => {
     setPpboat(false);
   };
 
-  const morningScene = () => {
-    return (
-      <section className="morningScene">
-        <div className="morningSun"></div>
-        {mountainScene()}
-      </section>
-    );
-  };
-
-  const afternoonScene = () => {
-    return (
-      <section className="afternoonScene">
-        <div className="afternoonSun"></div>
-        {mountainScene()}
-      </section>
-    );
-  };
-
-  const nightScene = () => {
-    return (
-      <section className="nightScene">
-        <div className="moon"></div>
-        {mountainScene()}
-      </section>
-    );
-  };
-
+  /**
+   * Callback funtion to parent to read out predefined message based on user's location time
+   */
   const clockTalk = () => {
     let d = new Date();
     let hours = d.getHours();
@@ -185,9 +153,16 @@ const Room = props => {
     }
   };
 
+  /**
+   * Callback function to parent to start listening to user's voice
+   */
   const talkButton = () => {
     props.talkValue(true);
   };
+
+  /**
+   * Callback functions to parent to start speaking predefined messages
+   */
 
   const noteTalk = () => {
     props.roomTalk("note");
@@ -217,8 +192,11 @@ const Room = props => {
     props.roomTalk("cup");
   };
 
+  /**
+   * Callback toggle function to parent to announce and close the quiz
+   */
   const toggleQuiz = () => {
-    if(!quizVar){
+    if (!quizVar) {
       props.announceQuiz();
     } else {
       props.closeQuiz();
@@ -226,27 +204,55 @@ const Room = props => {
     setQuizRound(!quizVar);
   };
 
+  /**
+   * Callback function to parent to start the quiz
+   */
   const startQuiz = () => {
-    let userName = document.getElementsByClassName("nameInput")[0]
-    if(userName.value !== ""){
+    let userName = document.getElementsByClassName("nameInput")[0];
+    if (userName.value !== "") {
       props.startQuiz(userName.value);
     }
-  }
+  };
 
+  /**
+   * Function to remove the curtains
+   */
   const removeCurtains = () => {
     setCurtains(true);
-  }
+  };
 
   return (
     <article id="workspace">
-      <section className={"curtain curtainLeft " + (curtainsOff ? "curtainLeftOpen" : "")}></section>
+      <section
+        className={
+          "curtain curtainLeft " + (curtainsOff ? "curtainLeftOpen" : "")
+        }
+      ></section>
       <section className={"instructions " + (curtainsOff ? "none" : "")}>
         <header>LockDown@Home</header>
-        <p>This is a fun voice integrated environment, where you can explore things in the room. Try hovering on items in the room and see what happens.</p>
-        <p>Try interacting with the lady by clicking on the microphone on the table, and speaking near your machine. You can start interaction by saying, `How are you?`, `How is the weather?`, `Light off`, `Light on`, etc.</p>
-        <p>Start exploring the room and enjoy. Feel free to contribute to this open source project to improve it even more. To go to Github link, please click <a href="https://github.com/SauarvD/lockdown-home" target="_blank">here</a></p>
+        <p>
+          This is a fun voice integrated environment, where you can explore
+          things in the room. Try hovering on items in the room and see what
+          happens.
+        </p>
+        <p>
+          Try interacting with the lady by clicking on the microphone on the
+          table, and speaking near your machine. You can start interaction by
+          saying, `How are you?`, `How is the weather?`, `Light off`, `Light
+          on`, etc.
+        </p>
+        <p>
+          Start exploring the room and enjoy. Feel free to contribute to this
+          open source project to improve it even more. To go to Github link,
+          please click{" "}
+          <a href="https://github.com/SauarvD/lockdown-home" target="_blank">
+            here
+          </a>
+        </p>
         <p>To start the play, click Go</p>
-        <p className="startButton" onClick={() => removeCurtains()}>Go</p>
+        <p className="startButton" onClick={() => removeCurtains()}>
+          Go
+        </p>
       </section>
       <div className="bulbContainer">
         <div className="relative">
@@ -279,8 +285,10 @@ const Room = props => {
             {quizVar && (
               <div className="dataContainer">
                 <div className="notice">Uncheck the box to stop the MAGIC</div>
-                <input className="nameInput"/>
-                <div className="quizButton" onClick={() => startQuiz()}>START</div>
+                <input className="nameInput" />
+                <div className="quizButton" onClick={() => startQuiz()}>
+                  START
+                </div>
               </div>
             )}
             {!quizVar && (
@@ -293,19 +301,25 @@ const Room = props => {
       <div id="shelf">
         <ul>
           <li className="books" onMouseEnter={shelfTalk}>
-            <span></span>
+            <span>
+              <p className="bookTitle">CSS</p>
+            </span>
             <span>
               <i></i>
+            </span>
+            <span></span>
+            <span></span>
+            <span>
+              <p className="bookTitle html">HTML</p>
             </span>
             <span></span>
             <span></span>
             <span></span>
             <span></span>
             <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+            <span>
+              <p className="bookTitle vue">VUE</p>
+            </span>
             <span></span>
           </li>
         </ul>
@@ -395,7 +409,11 @@ const Room = props => {
           <i className="shadows"></i>
         </div>
       </div>
-      <section className={"curtain curtainRight " + (curtainsOff ? "curtainRightOpen" : "")}></section>
+      <section
+        className={
+          "curtain curtainRight " + (curtainsOff ? "curtainRightOpen" : "")
+        }
+      ></section>
     </article>
   );
 };
