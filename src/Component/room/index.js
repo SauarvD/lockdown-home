@@ -13,7 +13,7 @@ import ppboat from "../../assets/ppboat.png";
 
 const Room = props => {
   /**
-   * Initializations of variables
+   * Initializations of boolean variables
    */
   const [helmetShow, setHelmet] = useState(false);
   const [ttbatShow, setTtbat] = useState(false);
@@ -21,14 +21,8 @@ const Room = props => {
   const [ppboatShow, setPpboat] = useState(false);
   const [quizVar, setQuizRound] = useState(false);
   const [curtainsOff, setCurtains] = useState(false);
-  const [currentTime, setTime] = useState("");
 
   useEffect(() => {
-    let d = new Date();
-    d = d.getHours();
-    let timeOfTheDay =
-      d >= 6 && d <= 14 ? "morning" : d > 14 && d < 19 ? "afternoon" : "night";
-    setTime(timeOfTheDay);
     timeMapping();
     /**
      * Setting 5 mins interval after which clock time will get updated
@@ -245,7 +239,11 @@ const Room = props => {
           Start exploring the room and enjoy. Feel free to contribute to this
           open source project to improve it even more. To go to Github link,
           please click{" "}
-          <a href="https://github.com/SauarvD/lockdown-home" target="_blank">
+          <a
+            href="https://github.com/SauarvD/lockdown-home"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             here
           </a>
         </p>
